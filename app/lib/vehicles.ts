@@ -1,6 +1,6 @@
 export function calculateAverageDelay(vehicles: any[]) {
   return (
-    vehicles?.reduce((acc: number, v: any) => acc + v.TimeData.Deviation) /
+    vehicles?.reduce((acc: number, v: any) => acc + v.TimeData.Deviation, 0) /
     vehicles?.length
   );
 }
@@ -10,4 +10,9 @@ export async function getNextStop(vehicleNumber: string) {
   const data = await res.json();
   const nextStop = data?.PatternData?.StopPoints[0];
   return nextStop;
+}
+
+export function findVehiclePostionData(vehicleNumber: string, vehicles: any[]) {
+  return vehicles?.find((v: any) => v.VehicleNumber === Number(vehicleNumber))
+    ?.PositionData;
 }

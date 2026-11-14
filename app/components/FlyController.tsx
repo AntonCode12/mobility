@@ -13,7 +13,7 @@ export default function FlyController({
     if (target) {
       map.flyTo(target, zoom ?? 18, { duration: 1.2 });
     } else {
-      map.flyTo([48.397798, 9.990832], 13, { duration: 1.2 }); // Default Augsburg
+      map.flyTo([48.397798, 9.990832], 13, { duration: 1.2 });
     }
   }, [target, map]);
   return null;
