@@ -20,7 +20,7 @@ export default function LiveMap() {
   });
 
   const targetIconBus = L.divIcon({
-    html: '<div style="font-size: 20px">🚌<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span><span class="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-500"></span></div>',
+    html: '<div style="font-size: 20px; display: flex; flex-direction: column; align-items: center;"><span>🚌</span><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span><span class="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-500"></span></div>',
     className: "",
     iconSize: [24, 24],
     iconAnchor: [12, 12],
@@ -63,6 +63,7 @@ export default function LiveMap() {
         center={[48.397798, 9.990832]}
         zoom={12}
         style={{ height: "100vh", width: "100%" }}
+        zoomControl={false}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -77,31 +78,25 @@ export default function LiveMap() {
           if (isTarget) {
             console.log("Target vehicle found:", v.VehicleCategory);
           }
-          let icon = busIcon; // Default icon, will be overridden below
+          let icon = v.VehicleCategory === 1 ? tramIcon : busIcon; // Default icon, will be overridden below
 
           switch (isTarget) {
             case true:
-              switch (v.JourneyData.RouteNumber) {
+              switch (v.VehicleCategory) {
                 case 1:
                   icon = targetIconTram;
                   break;
-                case 2:
-                  icon = targetIconTram;
-                  break;
-                default:
+                case 5:
                   icon = targetIconBus;
                   break;
               }
               break;
             case false:
-              switch (v.JourneyData.RouteNumber) {
+              switch (v.VehicleCategory) {
                 case 1:
                   icon = tramIcon;
                   break;
-                case 2:
-                  icon = tramIcon;
-                  break;
-                default:
+                case 5:
                   icon = busIcon;
                   break;
               }
@@ -118,7 +113,7 @@ export default function LiveMap() {
                   <strong>{v.JourneyData.RouteNumber} </strong>
                   {v.JourneyData.DepartureDirectionText}
                   <br />
-                  {v.TimeData.Deviation < 0 && (
+                  {Math.round(v.TimeData.Deviation) < 0 && (
                     <span>
                       Verspätung:{" "}
                       <span className="text-red-500 text-semibold">
