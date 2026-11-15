@@ -103,7 +103,7 @@ export default function MapControls({
           />
           <div
             onClick={(e) => e.stopPropagation()}
-            className="pointer-events-auto absolute left-1/9 right-1/9 z-500 top-2/9 bottom-3/9 rounded-xl sm:hidden bg-white/50 backdrop-blur-sm p-2 flex"
+            className="pointer-events-auto absolute left-1/13 right-1/13 z-500 top-2/9 bottom-3/9 rounded-xl sm:hidden bg-white/50 backdrop-blur-sm p-2 flex"
           >
             <Search
               vehicles={activeVehicles}
