@@ -11,6 +11,7 @@ export default function LiveMap() {
   const [target, setTarget] = useState<[number, number] | null>(null);
   const [data, setData] = useState<any>(null);
   const [notFound, setNotFound] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const busIcon = L.divIcon({
     html: '<div style="font-size: 20px">🚌</div>',
@@ -137,6 +138,8 @@ export default function LiveMap() {
         target={target}
         setNotFound={setNotFound}
         notFound={notFound}
+        isSearchOpen={isSearchOpen}
+        setIsSearchOpen={setIsSearchOpen}
       />
     </div>
   );
