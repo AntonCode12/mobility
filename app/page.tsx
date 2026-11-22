@@ -1,10 +1,5 @@
-"use client";
-import dynamic from "next/dynamic";
+import DepartureSearch from "./components/departures/DepartureSearch";
 
-const MapView = dynamic(() => import("./components/LiveMap"), {
-  ssr: false,
-});
-
-export default function Home() {
-  return <MapView />;
+export default function Departures() {
+  return <DepartureSearch />;
 }
