@@ -1,5 +1,5 @@
 "use client";
-import { Stop } from "@/lib/stops";
+import { Stop } from "@/app/lib/stops";
 import DepartureHeader from "./DepartureHeader";
 import { useEffect, useState } from "react";
 import DepartureList from "./DepartureList";
