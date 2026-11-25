@@ -1,16 +1,21 @@
 "use client";
+import { Stop } from "@/lib/stops";
 import DepartureHeader from "./DepartureHeader";
 import { useEffect, useState } from "react";
 import DepartureList from "./DepartureList";
 export default function DepartureSearch() {
-  const [stopNumber, setStopNumber] = useState("1001");
+  const [stop, setStop] = useState<Stop>({
+    StopNumber: "404",
+    StopName: "Not Found",
+  });
   const [data, setData] = useState<any>(null);
-  const [stopName, setStopName] = useState<string>("");
   useEffect(() => {
     const loadData = () => {
       fetch("/api/stopData")
         .then((res) => res.json())
-        .then(setData);
+        .then((data) => {
+          setData(data);
+        });
     };
     loadData();
 
@@ -20,14 +25,16 @@ export default function DepartureSearch() {
   const stops = data?.StopAttributes?.StopData;
   return (
     <>
-      <DepartureHeader
-        stopNumber={stopNumber}
-        setStopNumber={setStopNumber}
-        stops={stops}
-        setStopName={setStopName}
-      />
+      <DepartureHeader stops={stops} stop={stop} setStop={setStop} />
       <div className="bg-black min-h-screen">
-        <DepartureList stopNumber={stopNumber} stopName={stopName} />
+        {stop.StopName !== "Not Found" ? (
+          <DepartureList stop={stop} />
+        ) : (
+          <div className="text-white text-center p-4">
+            Haltestelle entweder nicht gefunden oder noch nicht verfügbar. Bitte
+            versuchen Sie es später erneut.
+          </div>
+        )}
       </div>
     </>
   );

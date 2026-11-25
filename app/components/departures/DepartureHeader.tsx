@@ -1,19 +1,17 @@
 "use client";
+import { Stop } from "@/app/lib/stops";
 import { useState } from "react";
 
 export default function DepartureHeader({
-  stopNumber,
-  setStopNumber,
   stops,
-  setStopName,
+  stop,
+  setStop,
 }: {
-  stopNumber: string;
-  setStopNumber: (stopNumber: string) => void;
   stops: any;
-  setStopName: (stopName: any) => void;
+  stop: Stop;
+  setStop: (stop: Stop) => void;
 }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [stop, setStop] = useState<any>(null);
 
   return (
     <header className=" bg-black p-5  border-b border-zinc-600">
@@ -33,32 +31,23 @@ export default function DepartureHeader({
         <form
           onSubmit={(e) => (
             e.preventDefault(),
-            setStopNumber(
-              !Number(searchTerm)
-                ? stops.filter(
-                    (stop: any) =>
-                      stop.StopName.toLowerCase().includes(
-                        searchTerm.toLowerCase(),
-                      ) || stop.StopNumber.toString().includes(searchTerm),
-                  )[0]?.StopNumber || "1001"
-                : stops.find(
-                    (stop: any) =>
-                      stop.StopNumber.toString() === searchTerm.toString(),
-                  ),
-            ),
-            setStopName(
-              !Number(searchTerm)
-                ? stops.filter(
-                    (stop: any) =>
-                      stop.StopName.toLowerCase().includes(
-                        searchTerm.toLowerCase(),
-                      ) || stop.StopNumber.toString().includes(searchTerm),
-                  )[0]?.StopName || "Haltestelle nicht gefunden"
-                : stops.find(
-                    (stop: any) =>
-                      stop.StopNumber.toString() === searchTerm.toString(),
-                  )?.StopName || "Haltestelle nicht gefunden",
-            )
+            setStop({
+              StopNumber:
+                stops.filter(
+                  (stop: any) =>
+                    stop.StopName.toLowerCase().includes(
+                      searchTerm.toLowerCase(),
+                    ) || stop.StopNumber.toString().includes(searchTerm),
+                )[0]?.StopNumber || "Haltestelle nicht gefunden",
+              StopName:
+                stops.filter(
+                  (stop: any) =>
+                    stop.StopName.toLowerCase().includes(
+                      searchTerm.toLowerCase(),
+                    ) || stop.StopNumber.toString().includes(searchTerm),
+                )[0]?.StopName || "Haltestelle nicht gefunden",
+            }),
+            setSearchTerm("")
           )}
         >
           <label
@@ -108,15 +97,13 @@ export default function DepartureHeader({
                 key={stop.StopNumber}
                 className="p-2 hover:bg-zinc-800 cursor-pointer"
                 onClick={(e) => (
-                  setStopNumber(stop.StopNumber),
-                  setStopName(stop.StopName),
+                  setStop({
+                    StopNumber: stop.StopNumber,
+                    StopName: stop.StopName,
+                  }),
                   setSearchTerm("")
                 )}
               >
-                <span className="text-yellow-500 border p-1 rounded-lg mr-2 bg-yellow-950 border-yellow-700">
-                  {stop.StopNumber}
-                </span>
-
                 {stop.StopName}
               </div>
             ))}

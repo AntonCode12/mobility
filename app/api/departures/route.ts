@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-  const stop = new URL(req.url).searchParams.get("stop") || "1001";
+  const stop = new URL(req.url).searchParams.get("stop") || "404";
   const limit = new URL(req.url).searchParams.get("limit") || "10";
 
   const res = await fetch(
