@@ -15,7 +15,7 @@ export default function DepartureHeader({
 
   return (
     <header className=" bg-black p-5  border-b border-zinc-600">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center  gap-2">
         <img
           src="../../favicon.svg"
           alt="Logo"
@@ -52,7 +52,7 @@ export default function DepartureHeader({
         >
           <label
             htmlFor="stopNumberInput"
-            className="transition-all mb-2 delay-20 ease-in focus-within:ring-2 focus-within:ring-blue-500 gap-2 flex items-center gap-2bg-black text-white placeholder:text-zinc-400 border border-zinc-600 rounded-xl p-1"
+            className="transition-all mb-2 delay-20 ease-in focus-within:ring-2 focus-within:ring-blue-500 gap-2  flex items-center bg-black text-white placeholder:text-zinc-400 border border-zinc-600 rounded-xl p-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

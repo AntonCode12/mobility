@@ -6,12 +6,15 @@ export default function DepartureList({ stop }: { stop: Stop }) {
   useEffect(() => {
     const loadData = () => {
       fetch("/api/departures?stop=" + stop.StopNumber)
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((data) => {
           setData(data);
+          console.log(data);
         });
     };
-    loadData();
+
     const interval = setInterval(loadData, 3000);
     return () => clearInterval(interval);
   }, [stop.StopNumber]);
@@ -37,7 +40,8 @@ export default function DepartureList({ stop }: { stop: Stop }) {
     <div className="bg-black p-4">
       <div className="">
         <h1 className="text-white text-xl font-bold">{stop.StopName}</h1>
-
+      </div>
+      <div className="mt-4">
         {stop.StopNumber == data?.StopPassage?.StopNumber ? (
           <Suspense fallback={<div>Lade Haltestelle {stop.StopNumber}</div>}>
             {data?.StopPassage?.DepartureData?.map((departure: any) => (

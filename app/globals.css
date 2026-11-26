@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+.body {
+  font-family: "Inter", sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .leaflet-container {
   font-family: inherit;
   border-radius: 0;
